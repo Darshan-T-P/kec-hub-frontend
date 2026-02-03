@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { FormattedText } from './FormattedText';
 import { Opportunity, User } from '../types';
-import { getCareerAdvice, generateApplicationDraft } from '../services/gemini';
+// Removed frontend gemini imports to fix API key errors
+// import { getCareerAdvice, generateApplicationDraft } from '../services/gemini';
 
 interface Props {
   opportunity: Opportunity;
@@ -14,11 +15,10 @@ interface Props {
 }
 
 const OpportunityDetail: React.FC<Props> = ({ opportunity, user, onClose, onApply, isApplied, onOpenAIAdvantage }) => {
-  const [advice, setAdvice] = useState<string | null>(null);
-  const [draft, setDraft] = useState<string | null>(null);
-  const [loadingAdvice, setLoadingAdvice] = useState(false);
-  const [loadingDraft, setLoadingDraft] = useState(false);
 
+
+  // Removed frontend AI handlers
+  /*
   const handleGetAdvice = async () => {
     setLoadingAdvice(true);
     const result = await getCareerAdvice(user, opportunity);
@@ -32,6 +32,7 @@ const OpportunityDetail: React.FC<Props> = ({ opportunity, user, onClose, onAppl
     setDraft(result);
     setLoadingDraft(false);
   };
+  */
 
   const isLiveResult = opportunity.id.startsWith('live-') || opportunity.id.startsWith('rt-');
 
@@ -116,46 +117,23 @@ const OpportunityDetail: React.FC<Props> = ({ opportunity, user, onClose, onAppl
             </section>
 
             <section className="bg-slate-900 p-10 rounded-[3rem] space-y-8 shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-8 text-4xl opacity-20">🤖</div>
+              <div className="absolute top-0 right-0 p-8 text-4xl opacity-20">🚀</div>
               <div className="space-y-2">
-                <h3 className="text-2xl font-black text-white">AI Advantage</h3>
-                <p className="text-slate-400 text-sm font-bold uppercase tracking-widest">Grounding with Gemini 2.5</p>
+                <h3 className="text-2xl font-black text-white">Career Roadmap</h3>
+                <p className="text-slate-400 text-sm font-bold uppercase tracking-widest">Powered by AI Insights</p>
               </div>
 
               <div className="flex flex-wrap gap-4">
-                <button onClick={handleGetAdvice} disabled={loadingAdvice} className="flex-1 bg-white/10 text-white px-8 py-5 rounded-2xl text-sm font-black border border-white/10 hover:bg-white/20 transition-all disabled:opacity-50">
-                  {loadingAdvice ? 'Analyzing...' : 'Strategic Preparation'}
-                </button>
                 <button
                   onClick={() => onOpenAIAdvantage?.(opportunity.title, opportunity.company)}
-                  className="flex-1 bg-indigo-500/20 text-indigo-100 px-8 py-5 rounded-2xl text-sm font-black border border-indigo-500/30 hover:bg-indigo-500/30 transition-all"
+                  className="w-full bg-indigo-600 text-white px-8 py-5 rounded-2xl text-lg font-black shadow-xl shadow-indigo-900/40 hover:bg-indigo-500 transition-all text-center"
                 >
-                  🚀 Full Roadmap
-                </button>
-                <button onClick={handleGenerateDraft} disabled={loadingDraft} className="flex-1 bg-indigo-600 text-white px-8 py-5 rounded-2xl text-sm font-black shadow-xl shadow-indigo-900/40 hover:bg-indigo-500 transition-all disabled:opacity-50">
-                  {loadingDraft ? 'Drafting...' : 'AI Cover Letter'}
+                  Generate Full Preparation Roadmap 🚀
                 </button>
               </div>
-
-              {(advice || draft) && (
-                <div className="bg-white rounded-[2.5rem] p-8 space-y-8 animate-in slide-in-from-top-4 duration-500">
-                  {advice && (
-                    <div>
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Strategic Advice</p>
-                      <FormattedText text={advice} className="text-slate-700 text-lg font-medium" />
-                    </div>
-                  )}
-                  {draft && (
-                    <div className="pt-8 border-t border-slate-100">
-                      <div className="flex justify-between items-center mb-4">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Ready-to-use Draft</p>
-                        <button onClick={() => navigator.clipboard.writeText(draft)} className="px-5 py-2 bg-indigo-50 text-indigo-600 rounded-full font-black text-[10px] hover:bg-indigo-100 transition-all">Copy Text</button>
-                      </div>
-                      <div className="text-slate-700 text-sm leading-relaxed italic font-medium bg-slate-50 p-6 rounded-3xl border border-slate-100 whitespace-pre-wrap">{draft}</div>
-                    </div>
-                  )}
-                </div>
-              )}
+              <p className="text-slate-400 text-xs font-bold text-center">
+                Get a personalized study plan, interview patterns, and more.
+              </p>
             </section>
           </div>
 

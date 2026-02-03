@@ -56,7 +56,7 @@ const AIAdvantagePage: React.FC<AIAdvantagePageProps> = ({ user, initialRole = '
   const [jobDescription, setJobDescription] = useState('');
   const [coverLetterResult, setCoverLetterResult] = useState<CoverLetterResult | null>(null);
 
-  const API_BASE_URL = 'http://localhost:8000';
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
   const generateStrategicPrep = async () => {
     if (!targetRole) {
@@ -234,7 +234,7 @@ const AIAdvantagePage: React.FC<AIAdvantagePageProps> = ({ user, initialRole = '
                   disabled={loading}
                   className="w-full bg-blue-600 text-white py-3 px-4 sm:px-6 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm sm:text-base"
                 >
-                  {loading ? '🔍 Researching with Gemini...' : '✨ Generate Strategic Plan'}
+                  {loading ? '🔍 Researching with AI...' : '✨ Generate Strategic Plan'}
                 </button>
               </div>
             </div>
@@ -388,7 +388,7 @@ const AIAdvantagePage: React.FC<AIAdvantagePageProps> = ({ user, initialRole = '
                   disabled={loadingCover}
                   className="w-full bg-purple-600 text-white py-3 px-4 sm:px-6 rounded-lg font-semibold hover:bg-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm sm:text-base"
                 >
-                  {loadingCover ? '✍️ Writing with Gemini...' : '✨ Generate Cover Letter'}
+                  {loadingCover ? '✍️ Writing with AI...' : '✨ Generate Cover Letter'}
                 </button>
               </div>
             </div>
